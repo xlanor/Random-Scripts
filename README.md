@@ -9,3 +9,9 @@
 
 ## examscore.py
 * A terminal python3 script to calculate exam score based on input.
+
+## email_crypto_price.php
+* A php script run as cronjob to check crypto prices for LTC and ETH
+* Written for a friend going on holiday.
+* Once it hits a certain price point it **will send an email every 5 minutes**
+* run as cronjob.
