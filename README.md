@@ -22,3 +22,11 @@
 * This bash script scans the celery logs if the last 2 lines contain the word "Exit code 70"
 * If so, it uses pkill to kill the relevant celery worker and then restart it with nohup.
 * It also activates a php script to send a mail to inform us that it went down at this timing.
+
+## update_grub.sh
+* After updating, if not necessary, we want to remove old linux kernels.
+* This removes all but the latest 2 installed kernels, and refreshes grub.
+* Tested on fedora 26
+* requires yum-utils
+
+![screenshot](https://i.imgur.com/ev18zZt.png)
