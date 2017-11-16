@@ -1,0 +1,15 @@
+[Unit]
+Description=Flower, a monitoring tool for celery
+Documentation=http://flower.readthedocs.io/en/latest/
+
+[Service]
+User=root
+Group=root
+WorkingDirectory=/synagie
+ExecStart=/usr/local/bin/flower -A synagie.celery
+Type=simple
+
+[Install]
+WantedBy=multi-user.target
+
+#Just a small backup of a simple flower service unit to be run by systemd on boot.
