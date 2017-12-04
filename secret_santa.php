@@ -18,7 +18,7 @@ email varchar(100)
 received_status = Unexchanged
 given_status = No
 */
-
+use PHPMailer\PHPMailer\PHPMailer;
 class uRandom
 {
 	private function getToFromDB(){
@@ -119,6 +119,61 @@ class uRandom
 		}
 		return True;
 	}
+	
+	private function generateEmailList(){
+		include('connection.php');
+		$userarray = array();
+		$selectq = "SELECT a.user_name, a.email, 
+					b.user_name AS to_user, 
+					c.user_name AS from_user 
+					FROM `user` a INNER JOIN user b ON a.user_id = b.from_user 
+					INNER JOIN user c ON a.user_id = c.received_user";
+		$selectx = $dbh->prepare($selectq);
+		$selectx->execute();
+		if($selectx->rowCount() > 0){
+			$fetch = $selectx->fetchAll();
+			foreach($fetch as $fetched){
+				array_push($userarray,array("name"=>$fetched['user_name'],"email"=>$fetched['email'],"give_to"=>$fetched['to_user']));
+			}
+		}
+		return $userarray;
+	}
+	private function fireMail($userarray){
+		require '../randomscripts/vendor/autoload.php';
+		foreach ($userarray as $user){
+			$title = "Secret Santa assignment for ".$user['name'];
+			$message = "Good Morning/Afternoon/Evening ".$user['name']."\r\n";
+			$message .= "You have been assigned as the secret santa of ".$user['give_to']."\r\n";
+			$message .= "Regards, \r\n";
+			$message .= "Santa Script";
+			$mail = new PHPMailer;
+			$mail->isSMTP();
+			$mail->SMTPDebug = 2;
+			$mail->Host = 'smtp.gmail.com';
+			$mail->Port = 587;
+			$mail->SMTPSecure = 'tls';
+			$mail->SMTPAuth = true;
+			$mail->Username = "youremail";
+			$mail->Password = "yourpassword";
+			$mail->setFrom('youremail', 'Santa Script');
+
+			$mail->addReplyTo('youremail', 'yourname');
+			$mail->addAddress($user['email'], $user['name']);
+			$mail->Subject = $title;
+			$mail->Body= $message;
+			if (!$mail->send()) 
+			{
+				error_log("Mailer Error: " . $mail->ErrorInfo);
+			} 
+			else 
+			{
+				error_log("Message sent!");
+			   
+			}
+		}
+	
+	}
+	
 	public function Fire(){
 		$this->RandomNumber();
 		$sentinel = True;
@@ -130,7 +185,10 @@ class uRandom
 				$sentinel = False;
 			}
 		}
+		$userarr = $this->generateEmailList();
+		$this->fireMail($userarr);
 	}
+
 }
 $random = new uRandom;
 $random->Fire();
