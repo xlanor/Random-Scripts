@@ -5,7 +5,7 @@ DB Structure
 ===================================
               db.User
 ===================================
-user_idIndex	int(11)			NULL AUTO_INCREMENT	UNIQUE
+user_idIndex	int(11) NULL AUTO_INCREMENT UNIQUE
 user_name	varchar(50)	
 received_status	varchar(11)	
 given_status	varchar(50)
