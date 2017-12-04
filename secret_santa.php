@@ -69,7 +69,6 @@ class uRandom
 					if(!in_array($random_from, $from_done_array)){
 						if(!in_array($random_to, $to_done_array)){
 							$this->updateDB($toarray[$random_to],$fromarray[$random_from]);
-							print($fromarray[$random_from].' '.$toarray[$random_to]).PHP_EOL;
 							array_push($from_done_array,$random_from);
 							array_push($to_done_array,$random_to);
 							unset($fromarray[$random_from]);
