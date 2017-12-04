@@ -11,7 +11,12 @@ received_status	varchar(11)
 given_status	varchar(50)
 from_user	int(11)	NULL
 received_user	int(11)	NULL
-email varchar(100)  
+email varchar(100)
+====================================
+    Default initalized values
+====================================
+received_status = Unexchanged
+given_status = No
 */
 
 class uRandom
