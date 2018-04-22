@@ -2,6 +2,8 @@
 #
 #	Python3 script to write headers for java CSCI213.
 #	
+#	DO NOT ATTEMPT TO USE THIS ON A WINDOWS COMPUTER!
+#
 #	No support provided
 #	BACK UP YOUR FILES BEFORE USING
 #	NOT RESPONSIBLE FOR ANY FUCKUPS.
